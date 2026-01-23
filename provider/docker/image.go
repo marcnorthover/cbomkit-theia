@@ -22,7 +22,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/docker/docker/api/types"
-	"github.com/docker/docker/pkg/archive"
+	"github.com/moby/go-archive"
+	"github.com/moby/go-archive/compression"
 	log "github.com/sirupsen/logrus"
 	"io"
 	"log/slog"
@@ -103,7 +104,7 @@ func BuildImage(dockerfilePath string) (image ActiveImage, err error) {
 	}
 
 	slog.Debug("Tarring directory with Dockerfile", "path", dockerfilePath)
-	tar, err := archive.Tar(filepath.Dir(dockerfilePath), archive.Gzip)
+	tar, err := archive.Tar(filepath.Dir(dockerfilePath), compression.Gzip)
 	if err != nil {
 		return ActiveImage{}, err
 	}

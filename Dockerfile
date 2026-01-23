@@ -14,12 +14,12 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-FROM golang:1.24-alpine AS builder
+FROM golang:1.25-alpine AS builder
 
 WORKDIR /app
 
 # Install ca-certificates and git
-RUN sed -i 's/https:/http:/g' /etc/apk/repositories && apk update && apk add --no-cache ca-certificates git && update-ca-certificates
+RUN sed -i 's/https:/http:/g' /etc/apk/repositories && apk add --no-cache ca-certificates git && update-ca-certificates
 
 # Set environment variables to bypass SSL verification
 ENV GIT_SSL_NO_VERIFY=true
